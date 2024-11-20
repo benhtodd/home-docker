@@ -1,0 +1,27 @@
+version: "3"
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    command: --H unix:///var/run/docker.sock
+    ports:
+      - 8000:8000
+      - 9443:9443
+    volumes:
+      - /home/toddb/portainer/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - default:
+        ipv4_address: 172.17.0.3
+    restart: unless-stopped
+volumes:
+  portainer_data:
+networks:
+  default:
+    name: portainer_default
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.17.0.0/16
+          ip_range: 172.17.0.1/24
+          gateway: 172.17.0.1
