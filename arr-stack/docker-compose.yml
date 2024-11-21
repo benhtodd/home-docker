@@ -133,5 +133,5 @@ services:
       - ${HOMEDIR}/radarr/data:/config
       - /mnt/DATA2/movies:/movies #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
-      - ${MNT_DATA}/delugedl/:/delugedl
+      - /mnt/DATA2/delugedl/:/delugedl
     restart: unless-stopped
