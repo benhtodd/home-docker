@@ -19,6 +19,9 @@ services:
       - 8989:8989 # Sonarr
       - 9696:9696 # Prowlarr
       - 7878:7878 # radar
+      - 8112:8112 # deluge
+      - 58846:58846 #optional - deluge
+
     volumes:
       - /home/toddb/arr-stack/gluetun:/gluetun
       - /home/toddb/arr-stack/gluetun/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
@@ -33,28 +36,48 @@ services:
       #- WIREGUARD_PRIVATE_KEY=yOO6Wju7oBz29NmlJTmQ/DghEBr/PwquYCz7/0guHGE= # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/nordvpn.md#obtain-your-wireguard-private-key
       #- WIREGUARD_ADDRESSES=10.13.114.77/24
       # Timezone for accurate log times
-      - TZ=America/Vancouver
+      - TZ=${TZ}
       # Server list updater
       # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/servers.md#update-the-vpn-servers-list
       - UPDATER_PERIOD=24h
 
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent
-    container_name: qbittorrent
+  # qbittorrent:
+  #   image: lscr.io/linuxserver/qbittorrent
+  #   container_name: qbittorrent
+  #   network_mode: "service:gluetun"
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=TZ=${TZ}
+  #     - WEBUI_PORT=8085
+  #   volumes:
+  #     - /home/toddb/arr-stack/qbittorrent:/config
+  #     - /mnt/DATA2/qbdownloads:/downloads
+  #     - /mnt/DATA2/tv:/tv
+  #     - /mnt/DATA2/movies/movies
+  #   depends_on:
+  #     - gluetun
+  #   restart: always
+
+  deluge:
+    image: lscr.io/linuxserver/deluge:latest
+    container_name: deluge
     network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Vancouver
-      - WEBUI_PORT=8085
+      - TZ=${TZ}
+      - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - /home/toddb/arr-stack/qbittorrent:/config
-      - /mnt/DATA2/qbdownloads:/downloads
-      - /mnt/DATA2/tv:/tv
-      - /mnt/DATA2/movies/movies
+      - ${HOMEDIR}/arr-stack/deluge:/config
+      - ${MNT_DATA}/delugedl:/downloads
+      - ${MNT_DATA}/tv:/tv
+      - ${MNT_DATA}/movies/movies
     depends_on:
       - gluetun
-    restart: always
+    restart: unless-stopped
+
+
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
@@ -63,7 +86,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=${TZ}
       - AUTO_UPDATE=true #optional
       - RUN_OPTS= #optional
     volumes:
@@ -78,7 +101,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Vancouver
+      - TZ=${TZ}
     volumes:
       - /home/toddb/arr-stack/sonarr/data:/config
       - /mnt/DATA2/tv:/tv #optional
@@ -92,7 +115,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Amererica/Vancouver
+      - TZ=${TZ}
     volumes:
       - /home/ubuntu/docker/arr-stack/prowlarr/data:/config
     restart: unless-stopped
@@ -104,7 +127,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Vancouver
+      - TZ=${TZ}
     volumes:
       - /home/toddb/radarr/data:/config
       - /mnt/DATA2/movies:/movies #optional
