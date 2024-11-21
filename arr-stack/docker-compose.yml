@@ -90,8 +90,8 @@ services:
       - AUTO_UPDATE=true #optional
       - RUN_OPTS= #optional
     volumes:
-      - /home/toddb/arr-stack/jackett/data:/config
-      - /home/toddb/arr-stack/jackett/blackhole:/downloads
+      - ${HOMEDIR}/arr-stack/jackett/data:/config
+      - ${HOMEDIR}/arr-stack/jackett/blackhole:/downloads
     restart: unless-stopped
 
   sonarr:
@@ -103,9 +103,10 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - /home/toddb/arr-stack/sonarr/data:/config
+      - ${HOMEDIR}/arr-stack/sonarr/data:/config
       - /mnt/DATA2/tv:/tv #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
+      - ${MNT_DATA}/delugedl/
     restart: unless-stopped
 
   prowlarr:
@@ -129,7 +130,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - /home/toddb/radarr/data:/config
+      - ${HOMEDIR}/radarr/data:/config
       - /mnt/DATA2/movies:/movies #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
+      - ${MNT_DATA}/delugedl/
     restart: unless-stopped
