@@ -72,7 +72,7 @@ services:
       - /home/toddb/arr-stack/deluge:/config
       - /mnt/DATA2/delugedl:/downloads
       - /mnt/DATA2/tv:/tv
-      - /mnt/DATA2/movies/movies
+      - /mnt/DATA2/movies:/movies
     depends_on:
       - gluetun
     restart: unless-stopped
