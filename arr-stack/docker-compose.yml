@@ -69,10 +69,10 @@ services:
       - TZ=${TZ}
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ${HOMEDIR}/arr-stack/deluge:/config
-      - ${MNT_DATA}/delugedl:/downloads
-      - ${MNT_DATA}/tv:/tv
-      - ${MNT_DATA}/movies/movies
+      - /home/toddb/arr-stack/deluge:/config
+      - /mnt/DATA2/delugedl:/downloads
+      - /mnt/DATA2/tv:/tv
+      - /mnt/DATA2/movies/movies
     depends_on:
       - gluetun
     restart: unless-stopped
@@ -90,8 +90,8 @@ services:
       - AUTO_UPDATE=true #optional
       - RUN_OPTS= #optional
     volumes:
-      - ${HOMEDIR}/arr-stack/jackett/data:/config
-      - ${HOMEDIR}/arr-stack/jackett/blackhole:/downloads
+      - /home/toddb/arr-stack/jackett/data:/config
+      - /home/toddb/arr-stack/jackett/blackhole:/downloads
     restart: unless-stopped
 
   sonarr:
@@ -103,10 +103,10 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${HOMEDIR}/arr-stack/sonarr/data:/config
+      - /home/toddb/arr-stack/sonarr/data:/config
       - /mnt/DATA2/tv:/tv #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
-      - ${MNT_DATA}/delugedl/:/delugedl
+      - /mnt/DATA2/delugedl/:/delugedl
     restart: unless-stopped
 
   prowlarr:
@@ -130,7 +130,7 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ${HOMEDIR}/radarr/data:/config
+      - /home/toddb/radarr/data:/config
       - /mnt/DATA2/movies:/movies #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
       - /mnt/DATA2/delugedl/:/delugedl
