@@ -106,7 +106,7 @@ services:
       - ${HOMEDIR}/arr-stack/sonarr/data:/config
       - /mnt/DATA2/tv:/tv #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
-      - ${MNT_DATA}/delugedl/
+      - ${MNT_DATA}/delugedl/:/delugedl
     restart: unless-stopped
 
   prowlarr:
@@ -133,5 +133,5 @@ services:
       - ${HOMEDIR}/radarr/data:/config
       - /mnt/DATA2/movies:/movies #optional
       - /mnt/DATA2/qbdownloads:/downloads #optional
-      - ${MNT_DATA}/delugedl/
+      - ${MNT_DATA}/delugedl/:/delugedl
     restart: unless-stopped
