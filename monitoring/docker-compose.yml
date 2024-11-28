@@ -8,7 +8,7 @@ services:
       - 9090:9090
     restart: unless-stopped
     volumes:
-      - /home/toddb/prometheus:/etc/prometheus
+      # - /home/toddb/prometheus:/etc/prometheus
       - /home/toddb/prometheus:/prometheus
   grafana:
     image: grafana/grafana
@@ -20,22 +20,46 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
-      - /home/toddb/grafana:/etc/grafana/provisioning/datasources
- 
+      - /home/toddb/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - /home/toddb/grafana/var/lib/grafana:/var/lib/grafana
+      - /home/toddb/grafana/etc/grafana:/etc/grafana
+      - /home/toddb/grafana/var/log/grafana:/var/log/grafana
+      - /home/toddb/grafana/etc/grafana/provisioning:/etc/grafana/provisioning
+
   cadviser:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     ports:
-    - '8087:8080'
+    - 8087:8080
     restart: unless-stopped
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
-      - /var/lib/docker:/var/lib/docker:ro
+      #- /var/lib/docker:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
 
+  pihole-exporter:
+    container_name: pihole-exporter
+    image: ekofr/pihole-exporter:latest
+    environment:
+      - PIHOLE_HOSTNAME=192.168.1.184 # Chage to PiHole's IP address or FQDN
+      - PIHOLE_PASSWORD=VMware1! # Change to your PiHole's password
+      - INTERVAL=90s
+    ports:
+      - "9617:9617"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5k"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD", "wget", "--tries=1", "--spider", "http://localhost:9617/metrics"]
+      interval: 300s
+      retries: 5
+      timeout: 10s
+    restart: always
 
-
+      
 volumes:
   prom_data:
