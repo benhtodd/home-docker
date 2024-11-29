@@ -15,10 +15,9 @@ services:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
-  networks:
-    - frontend
-  restart: unless-stopped
-
+    networks:
+      - frontend
+    restart: unless-stopped
 
 networks:
   frontend:
@@ -31,4 +30,4 @@ networks:
   #     - "87:80"
   #   labels:
   #     - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
-  #     # 
+  #     # `
