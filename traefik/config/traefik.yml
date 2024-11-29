@@ -1,0 +1,13 @@
+global:
+  checkNewVersion: false  
+  sendAnonymousUsage: false
+logs:
+  level: DEBUG
+  api:
+    dashbord: true
+    insecure: true
+entryPoints:
+  web:
+    address: :80
+  websecure: :443
+  
