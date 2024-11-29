@@ -14,7 +14,7 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /home/toddb/traefik/config/traefik.yml:/etc/traefik/traefik.yml:ro
     networks:
       - frontend
     restart: unless-stopped
