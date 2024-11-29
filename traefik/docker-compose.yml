@@ -4,7 +4,8 @@ services:
     image: traefik:v3.1.5
     container_name: traefik_proxy
     # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker
+    # command: --api.insecure=true --providers.docker
+    command: 
     ports:
       # The HTTP port
       - "89:80"
