@@ -8,9 +8,9 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-      - /home/toddb/homarr/configs:/app/data/configs
-      - /home/toddb/homarr/icons:/app/public/icons
-      - /home/toddb/homarr/data:/data
+      - ${BASEDIR}/homarr/configs:/app/data/configs
+      - ${BASEDIR}/homarr/icons:/app/public/icons
+      - ${BASEDIR}/homarr/data:/data
       - /home/todd:/home
     ports:
       - '7575:7575'
