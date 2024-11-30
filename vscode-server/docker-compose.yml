@@ -17,4 +17,11 @@ services:
       - ${HOMEDIR}:/toddb
     ports:
       - 6443:8443
+    networks:
+      - frontend
     restart: unless-stopped
+
+
+networks:
+  frontend:
+    external: true
