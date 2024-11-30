@@ -11,7 +11,7 @@ services:
       - ${BASEDIR}/homarr/configs:/app/data/configs
       - ${BASEDIR}/homarr/icons:/app/public/icons
       - ${BASEDIR}/homarr/data:/data
-      - /home/todd:/home
+      - ${BASEDIR}:/home
     ports:
       - '7575:7575'
     networks:
