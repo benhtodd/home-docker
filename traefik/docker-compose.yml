@@ -9,6 +9,7 @@ services:
     ports:
       # The HTTP port
       - "89:80"
+      # - "443:443"
       # The Web UI (enabled by --api.insecure=true)
       - "8089:8080"
     volumes:

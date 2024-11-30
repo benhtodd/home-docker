@@ -6,7 +6,6 @@ services:
   homarr:
     container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
-    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
       - /home/toddb/homarr/configs:/app/data/configs
@@ -14,3 +13,10 @@ services:
       - /home/toddb/homarr/data:/data
     ports:
       - '7575:7575'
+    networks:
+      - frontend
+    restart: unless-stopped
+
+networks:
+  frontend:
+    external: true
