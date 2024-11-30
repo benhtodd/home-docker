@@ -16,5 +16,5 @@ services:
       - /home/toddb/config:/config
       - /home/toddb:/toddb
     ports:
-      - 9443:8443
+      - 6443:8443
     restart: unless-stopped
