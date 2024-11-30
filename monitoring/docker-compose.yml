@@ -22,7 +22,7 @@ services:
     volumes:
       - /home/toddb/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - /home/toddb/grafana/var/lib/grafana:/var/lib/grafana
-      - /home/toddb/grafana/etc/grafana:/etc/grafana
+     # - /home/toddb/grafana/etc/grafana:/etc/grafana
       - /home/toddb/grafana/var/log/grafana:/var/log/grafana
       - /home/toddb/grafana/etc/grafana/provisioning:/etc/grafana/provisioning
 
