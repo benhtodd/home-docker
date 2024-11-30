@@ -13,8 +13,8 @@ services:
       # - PROXY_DOMAIN=code-server.my.domain #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
     volumes:
-      - /home/toddb/config:/config
-      - /home/toddb:/toddb
+      - ${HOMEDIR}/vscode-sever/config:/config
+      - ${HOMEDIR}:/toddb
     ports:
       - 6443:8443
     restart: unless-stopped
