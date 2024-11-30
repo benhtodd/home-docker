@@ -12,6 +12,7 @@ services:
       - ${BASEDIR}/homarr/icons:/app/public/icons
       - ${BASEDIR}/homarr/data:/data
       - ${BASEDIR}:/home
+      - ${MNT-DATA}:/MNT-DATA
     ports:
       - '7575:7575'
     networks:
