@@ -11,6 +11,6 @@ services:
       - ${HOMEDIR}/homeassistant:/config
     ports:
       - 8123:8123 #optional
-   # devices:
-#      - /path/to/device:/path/to/device #optional
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0 #optional
     restart: unless-stopped
