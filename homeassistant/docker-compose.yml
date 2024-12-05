@@ -14,3 +14,4 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0 #optional
     restart: unless-stopped
+    
