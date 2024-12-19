@@ -5,7 +5,7 @@ services:
     hostname: freeipa.coho.local
     environment:
       IPA_SERVER_HOSTNAME: freeipa.coho.local
-      TZ: "Asia/Tehran"
+      TZ: ${TZ}
     tty: true
     stdin_open: true
     cap_add:
